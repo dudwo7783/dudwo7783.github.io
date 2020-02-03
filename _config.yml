@@ -109,7 +109,7 @@ analytics:
 author:
   name             : "Youngjae Kim"
   avatar           : "/assets/images/avatar.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "하고 싶은 것 다하면서 살고 싶은 개발자"
+  bio              : "하고 싶은 것 다하면서 살고 싶은 개발자."
   location         : "Seoul, Korea"
   email            :
   links:
