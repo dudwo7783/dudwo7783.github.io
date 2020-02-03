@@ -1,3 +1,0 @@
----
-permalink: /about/
-title: "About"

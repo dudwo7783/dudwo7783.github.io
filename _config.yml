@@ -24,7 +24,7 @@ description              : "An amazing website."
 url                      : "https://dudwo7783.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "dudwo7783/dudwo7783.github.io"
-teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
+teaser                   : "/assets/images/teaser.png" # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
 # breadcrumbs            : false # true, false (default)
@@ -107,15 +107,15 @@ analytics:
 
 # Site Author
 author:
-  name             : "김영재"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I am an **amazing** person."
+  name             : "Youngjae Kim"
+  avatar           : "/assets/images/avatar.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  bio              : "하고 싶은 것 다하면서 살고 싶은 개발자"
   location         : "Seoul, Korea"
   email            :
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-      # url: mailto:your.name@email.com
+      url: mailto:dudwo7783@gm.com
     - label: "Website"
       icon: "fas fa-fw fa-link"
       # url: "https://your-website.com"
@@ -131,7 +131,14 @@ author:
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       # url: "https://instagram.com/"
-
+header:
+  image: /assets/images/teaser.jpg
+  overlay_image: /assets/images/teaser.jpg
+  overlay_filter: 0.5 # same as adding an opacity of 0.5 to a black background
+  caption: "Great Oceanload"
+  actions:
+    - label: "More Info"
+      url: "https://unsplash.com"
 # Site Footer
 footer:
   links:
