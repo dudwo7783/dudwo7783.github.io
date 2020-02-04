@@ -1,9 +1,8 @@
 ---
 layout: single
-title: [Python] - MODIN(1/2)
+title: "[Python] - MODIN(1/2)"
 categories: [data, engineering]
 tags: [data, engineering, python]
-
 ---
 
 # MODIN 소개
@@ -16,7 +15,11 @@ tags: [data, engineering, python]
 
 Python으로 데이터 처리를 하다보면 데이터에 따라 프레임워크 또는 라이브러리들이 종속적이게 된다.
 
-대용량 데이터를 운영하기 위해서는 클러스터를 구성하고 클러스터 상에서 처리하는 많은 프레임워크들이 있다. Apache Spark를 예로 들 수 있다. 하지만 아주 많은 경우 분석가들은 데이터들을 자신의 laptop 상에서 전처리하고 모델링하고 예측까지 하나의 파이프라인을 만드는 경우도 굉장히 많다. 그런데 데이터가 애매하게 많다?(데이터 사이즈가 크다 작다의 기준은 참 주관적이라고 생각한다) 얘기가 달라진다. laptop에서 돌리기에는 데이터가 커서 부담된다. 그래서 Spark 클러스터를 구성한다? trade off가 등가 교환이 안된다. Cost가 굉장히 많이 소모된다. 그렇다고 Pandas로 몇 GB를 laptop에서 돌린다? 우리에게는 시간이 없다.
+대용량 데이터를 운영하기 위해서는 클러스터를 구성하고 클러스터 상에서 처리하는 많은 프레임워크들이 있다. 
+
+Apache Spark를 예로 들 수 있다. 하지만 아주 많은 경우 분석가들은 데이터들을 자신의 laptop 상에서 전처리하고 모델링하고 예측까지 하나의 파이프라인을 만드는 경우도 굉장히 많다. 
+
+그런데 데이터가 애매하게 많다?(데이터 사이즈가 크다 작다의 기준은 참 주관적이라고 생각한다) 얘기가 달라진다. laptop에서 돌리기에는 데이터가 커서 부담된다. 그래서 Spark 클러스터를 구성한다? trade off가 등가 교환이 안된다. Cost가 굉장히 많이 소모된다. 그렇다고 Pandas로 몇 GB를 laptop에서 돌린다? 우리에게는 시간이 없다.
 
 이럴 때 사용할 수 있는 라이브러리가 MODIN이라고 생각한다. ***Faster pandas, even on your laptop / Modin is a DataFrame for datasets from 1KB to 1TB+*** 라고 modin Document에 작성되어 있다. 당신의 laptop에서도 빠른 pandas를 사용할 수 있고, 데이터의 스케일은 적게는 1KB to 1TB+ 까지도 가능하다 란다(light-weight). 
 
@@ -28,11 +31,11 @@ Python으로 데이터 처리를 하다보면 데이터에 따라 프레임워�
 
 ## 1. Architecture
 
-#### 1. Dataframe Partitioning
+### 1. Dataframe Partitioning
 
 Modin은 데이터베이스와 고성능 매트릭스 시스템의 트렌드를 따라간다. Modin은 데이터 프레임을 열과 행 모두 **patitioning**하는데, 이를 통해 Modin의 유연성과 확장성을 가져간다.
 
-![](/Users/kim-youngjae/Kim/4.study/0.Blog/dudwo7783.github.io/assets/images/modin_dataframe_architecture.jpg)
+![](/assets/images/modin_dataframe_architecture.jpg)
 
 
 
@@ -40,13 +43,13 @@ Modin은 데이터베이스와 고성능 매트릭스 시스템의 트렌드를 
 
 
 
-#### 2. System Arichtecture
+### 2. System Arichtecture
 
 Modin 다른 계층과 분리되어 있다. 각 구성 요소를 추상화하여 다른 시스템에 대한 영향을 줄이고자 하기 때문이다.
 
 어떤 새로운 컴퓨팅 커널이 릴리즈 된다면 해당 커널을 컴포넌트로써 연결하여 사용하도록 설계되어 있다.
 
-![modin-system-arichitecture](/Users/kim-youngjae/Kim/4.study/0.Blog/dudwo7783.github.io/assets/images/modin-system-arichitecture.jpg)
+![modin-system-arichitecture](/assets/images/modin-system-arichitecture.jpg)
 
 위 아키텍처를 보면 Execution layer에서 Ray, Dask를 사용한 병렬처리를 할 수 있도록 디자인 되었다.
 
@@ -54,21 +57,25 @@ Modin 다른 계층과 분리되어 있다. 각 구성 요소를 추상화하여
 
 #### 주요 API 
 
-- ***Execution Engine/Framework***
+##### 1. Execution Engine/Framework
 
-  간단한 환경 설정 등 몇 줄의 코딩을 통해 간단하게 병렬 컴퓨팅을 할 수 있다.
+간단한 환경 설정 등 몇 줄의 코딩을 통해 간단하게 병렬 컴퓨팅을 할 수 있다.
 
-  지원 되는 병렬 프레임워크는 Ray와 Dask가 있다. Dask Document는 아직 만들어지지 않았다. In-memory(pyArrow) 지원은 아직 experimental 단계이다.
+지원 되는 병렬 프레임워크는 Ray와 Dask가 있다. Dask Document는 아직 만들어지지 않았다.
 
-- ***Internal abstractions***
+In-memory(pyArrow) 지원은 아직 experimental 단계이다.
 
-  Partition Manager를 통해 파티셔닝 최적화를 한다.
+
+
+##### 2. Internal abstractions
+
+Partition Manager를 통해 파티셔닝 최적화를 한다.
 
 
 
 ## 2. Installation
 
-#### Stable version
+### Stable version
 
 ```
 pip install modin
@@ -76,7 +83,7 @@ pip install modin
 
 
 
-#### Install dependency sets
+### Install dependency sets
 
 modin은 병렬 프레임워크인 Ray, Dask에 의존한다.
 
@@ -103,7 +110,7 @@ pip install "modin[dask]" # If you want to use the Dask backend
 
 
 
-#### Single Node
+### Single Node
 
 흔히 `import pandas as pd` 한다 대신에
 
@@ -115,13 +122,13 @@ import modin.pandas as pd
 
 
 
-#### Cluster Mode
+### Cluster Mode
 
 Ray는 bulit-in autuscaled 클러스터를 지원한다. [autoscaler documentation](https://ray.readthedocs.io/en/latest/autoscaling.html) 을 통해 configrue를 설정해줘야 한다.
 
 
 
-#### Customize Ray environment
+### Customize Ray environment
 
 다음의 과정을 통해 ray의 환경 변수를 설정하여 resource 사용을 조정할 수 있다.
 
@@ -133,7 +140,7 @@ ray.init(num_cpus=4)
 
 
 
-#### Exceeding memory(out-of-core)
+### Exceeding memory(out-of-core)
 
 데이터가 너무 크다. 메모리에 올릴 수가 없다. 이럴 때 out-of-core라고 하는데 메모리 오버플로우에 대해서 disk를 사용할 수 있다.(대신에 disk 사용시 성능 저하 예상, Random access에서 one sequence로 접근)
 
@@ -159,13 +166,13 @@ export MODIN_MEMORY=200000000000 # Set the number of bytes to 200GB
 - utilities
 - I/O
 
-![modin_api_cover](/Users/kim-youngjae/Kim/4.study/0.Blog/dudwo7783.github.io/assets/images/modin_api_cover.png)
+![modin_api_cover](/assets/images/modin_api_cover.png)
 
 
 
 아직 위만큼 지원한다.
 
-https://modin.readthedocs.io/en/latest/UsingPandasonRay/index.html 에서 지원되는 API를 확인 할 수 있다.
+[https://modin.readthedocs.io/en/latest/UsingPandasonRay/index.html](https://modin.readthedocs.io/en/latest/UsingPandasonRay/index.html) 에서 지원되는 API를 확인 할 수 있다.
 
 
 
@@ -177,9 +184,9 @@ export MODIN_ENGINE=ray
 
 
 
-#### Ray 최적화
+### 1. Ray 최적화
 
-###### **Serialization of tasks and parameters**
+#### Serialization of tasks and parameters
 
 Task 및 매개변수 pre serialization을 통한 최적화
 
@@ -187,15 +194,17 @@ Task 및 매개변수 pre serialization을 통한 최적화
 
 
 
-###### **Memory Management**
+#### Memory Management
 
 Ray와 Arrow에 관련되어 있음. Ray는 arrow plasma를 사용한다고 하였다.
 
-pandas는 간단한 작업에도 많은 copy를 만든다. 따라서 더이상 객체의 메모리 참조가 되지 않으면 메모리를 비운다.(experimental)
+pandas는 간단한 작업에도 많은 copy를 만든다. 따라서 더이상 객체의 메모리 참조가 되지 않으면 메모리를 비운다.      (experimental)
 
 
 
-#### Pandas 최적화
+
+
+### 2. Pandas 최적화
 
 partitioning으로 인해 Modin Dataframe은 여러개의 인덱싱정보(행, 열)을 복제하여 사용한다.  이 문제를 해결하기 위해 [RangeIndex](https://pandas.pydata.org/pandas-docs/version/0.23.4/generated/pandas.RangeIndex.html)를 사용한다.(RangeIndex를 사용하면 메모리 절약 가능, 하지만 고정 cost 발생)
 
