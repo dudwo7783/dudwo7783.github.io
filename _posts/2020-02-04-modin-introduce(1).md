@@ -43,7 +43,7 @@ Modin은 데이터베이스와 고성능 매트릭스 시스템의 트렌드를 
 
 
 
-### 2. System Arichtecture
+### 2. System Arichitecture
 
 Modin 다른 계층과 분리되어 있다. 각 구성 요소를 추상화하여 다른 시스템에 대한 영향을 줄이고자 하기 때문이다.
 
