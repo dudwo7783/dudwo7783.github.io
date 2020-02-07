@@ -55,8 +55,8 @@ pip install ipywidgets chart_studio cufflinks
 import pandas as pd
 import ipywidgets as widgets
 from ipywidgets import interact, interact_manual, fixed
-import chart_studio.plotly as py 
-import cufflinks as cf 
+import chart_studio.plotly as py
+import cufflinks as cf
 
 cf.go_offline(connected=True)
 ```
@@ -87,7 +87,7 @@ pivotDict
 
 
 
-저기서 중요한 부분이 
+저기서 중요한 부분이
 
 `df.iplot(kind='bar')` 이다. pythond에서 plot library는 maplotlib, seaborn 등 많은데 이번 프로젝트에서 R Plotly를 많이 사용했고 interactive를 제공해 줘서 좋았다.
 
@@ -97,7 +97,7 @@ df.iplot 역시 plotly와 cufflinks를 이용해 pandas의 데이터프레임의
 
 pivot 테이블을 만들면
 
-<img src="/Users/kim-youngjae/Library/Application Support/typora-user-images/image-20200206220509817.png" alt="image-20200206220509817" style="zoom:50%;" />
+![](/assets/images/before_pivot.jpg){: width="50%" height="50%"}
 
 이런 모양이다.
 
@@ -107,7 +107,7 @@ Sex별(column) Drug별(row) 나이(Age)의 평균 값을 보고 싶을 때 만�
 
 
 
-<img src="/Users/kim-youngjae/Library/Application Support/typora-user-images/image-20200206220734432.png" alt="image-20200206220734432" style="zoom:50%;" />
+![](/assets/images/final_pivot.jpg){: width="50%" height="50%"}
 
 실은 최종 결과는 위와 같다.
 
@@ -117,26 +117,26 @@ Sex별(column) Drug별(row) 나이(Age)의 평균 값을 보고 싶을 때 만�
 
 ```python
 def interactPivot(df, index, columns, values, aggfunc, dropna, margins, theme, colorscale):
-    funcMap = {"sum" : np.sum, "mean" : np.mean, "min" : np.min, "max" : np.max, 
+    funcMap = {"sum" : np.sum, "mean" : np.mean, "min" : np.min, "max" : np.max,
                "median" : np.median, "std" : np.std, "var" : np.var}
-    
+
     # pivot table에서 index, value, columns의 선택한 항목이 같으면 에러가 발생하여 같은 경우 예외처리.
     if index in values or index == columns or columns in values:
         return("Index is same with values")
     if len(df[columns].unique())>1000:
         return("Too many columns")
-    
+
     df = df.pivot_table(
         values=values, columns=columns, index=index, dropna=dropna, margins=margins, aggfunc=funcMap[aggfunc])
-    
+
     df.iplot(kind='bar')
-    
+
     if columns != None:    
         if len(values) >1:
                 df.columns = list(map(lambda x: '__'.join(x), df.columns))
         else:
             df.columns = list(map(lambda x: x[1], df.columns))
-    
+
     df.reset_index(col_level=1, inplace=True)
     return(df)
 
@@ -178,7 +178,7 @@ dict_keys(['brbg', 'prgn', 'piyg', 'puor', 'rdbu', 'rdgy', 'rdylbu', 'rdylgn', '
 
 
 ```python
-indexWidget = widgets.Dropdown(options=df.columns, 
+indexWidget = widgets.Dropdown(options=df.columns,
                                value=df.columns[0])
 
 valuesWidget = widgets.SelectMultiple(
@@ -190,16 +190,16 @@ valuesWidget = widgets.SelectMultiple(
     )
 
 interact(
-    interactPivot, 
-    df=fixed(df), 
-    index=indexWidget, 
-    columns=df.select_dtypes("object").columns, 
+    interactPivot,
+    df=fixed(df),
+    index=indexWidget,
+    columns=df.select_dtypes("object").columns,
     values=valuesWidget,
-    #df.select_dtypes("number").columns, 
+    #df.select_dtypes("number").columns,
     aggfunc=["mean", "sum", "min", "max", "median", "std", "var"],
     dropna = [True,False],
     margins = [True,False],
-    theme=list(cf.themes.THEMES.keys()), 
+    theme=list(cf.themes.THEMES.keys()),
     colorscale=list(cf.colors._scales_names.keys())
 )
 ```
@@ -218,17 +218,17 @@ event를 추가하기 위해 각 widget에 observe를 걸어 놨는데 아직 �
 
 실행을 시키면
 
-![](/Users/kim-youngjae/Kim/4.study/0.Blog/dudwo7783.github.io/assets/images/ipywidgets.jpg)
+![](/assets/images/ipywidgets.jpg)
 
 
 
 위와 같이 나온다.
 
-<img src="/Users/kim-youngjae/Kim/4.study/0.Blog/dudwo7783.github.io/assets/images/ipyindex.jpg" alt="ipyindex" style="zoom:50%;" />
+![ipyvalues](/assets/images/ipyindex.jpg){: width="50%" height="50%"}
 
 dropdown 위젯은 위처럼 한개만 선택가능하며
 
-![ipyvalues](/Users/kim-youngjae/Kim/4.study/0.Blog/dudwo7783.github.io/assets/images/ipyvalues.png)
+![ipyvalues](/assets/images/ipyvalues.png){: width="50%" height="50%"}
 
 
 
@@ -243,8 +243,4 @@ dropdown 위젯은 위처럼 한개만 선택가능하며
 
 
 
-
-
-
 ## 마치며
-
