@@ -97,7 +97,7 @@ df.iplot 역시 plotly와 cufflinks를 이용해 pandas의 데이터프레임의
 
 pivot 테이블을 만들면
 
-![](/assets/images/before_pivot.jpg){: width="50%" height="50%"}
+![](/assets/images/before_pivot.jpg)
 
 이런 모양이다.
 
@@ -107,7 +107,7 @@ Sex별(column) Drug별(row) 나이(Age)의 평균 값을 보고 싶을 때 만�
 
 
 
-![](/assets/images/final_pivot.jpg){: width="50%" height="50%"}
+![](/assets/images/final_pivot.jpg)
 
 실은 최종 결과는 위와 같다.
 
@@ -224,11 +224,11 @@ event를 추가하기 위해 각 widget에 observe를 걸어 놨는데 아직 �
 
 위와 같이 나온다.
 
-![ipyvalues](/assets/images/ipyindex.jpg){: width="50%" height="50%"}
+![ipyvalues](/assets/images/ipyindex.jpg)
 
 dropdown 위젯은 위처럼 한개만 선택가능하며
 
-![ipyvalues](/assets/images/ipyvalues.png){: width="50%" height="50%"}
+![ipyvalues](/assets/images/ipyvalues.png)
 
 
 
